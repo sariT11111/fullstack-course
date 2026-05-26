@@ -1,33 +1,20 @@
-﻿//Exercise 3 — Part 2: Course Capacity with the field Keyword 
-// Legacy Pre-C# 14 Implementation (Verbose) 
-var course = new Course
-{
-    Code = "CS-401",
-    Title = "Advanced C#",
-    Capacity = 30
-};
-
-Console.WriteLine(
-    $"Course: {course.Title} (Capacity: {course.Capacity})");
+﻿var s = new Student { Id = "S1", Name = "Abeba", Age = 20, GPA = 3.8m }; 
+Console.WriteLine($"Student: {s.Name}, GPA: {s.GPA}");
 
 
-// INVALID CAPACITY
-try
-{
-    course.Capacity = -5;
-}
-catch (ArgumentOutOfRangeException ex)
-{
-    Console.WriteLine($"Caught: {ex.Message}");
-}
-
-
-// INVALID TITLE
-try
-{
-    course.Title = "";
-}
-catch (ArgumentException ex)
-{
-    Console.WriteLine($"Caught: {ex.Message}");
-}
+void PrintGradeReport(IEnumerable<IGradable> assessments) 
+{ 
+    Console.WriteLine("--- Grade Report ---"); 
+    foreach (var item in assessments) 
+    { 
+        Console.WriteLine($"{item.Title}: {item.CalculateGrade():F2}%"); 
+    } 
+} 
+ 
+// Test it — one array holds two completely different types 
+IGradable[] cohortAssessments = [ 
+    new Quiz { Title = "C# Basics", CorrectAnswers = 18, TotalQuestions = 20 }, 
+    new LabAssignment { Title = "Registration API", FunctionalityScore = 70m, CodeQualityScore = 30m } 
+]; 
+ 
+PrintGradeReport(cohortAssessments); 

@@ -7,9 +7,9 @@ C:\Users\tesfa\TmsCore\obj\Debug\net10.0\TmsCore.GeneratedMSBuildEditorConfig.ed
 C:\Users\tesfa\TmsCore\obj\Debug\net10.0\TmsCore.AssemblyInfoInputs.cache
 C:\Users\tesfa\TmsCore\obj\Debug\net10.0\TmsCore.AssemblyInfo.cs
 C:\Users\tesfa\TmsCore\obj\Debug\net10.0\TmsCore.csproj.CoreCompileInputs.cache
+C:\Users\tesfa\TmsCore\obj\Debug\net10.0\TmsCore.sourcelink.json
 C:\Users\tesfa\TmsCore\obj\Debug\net10.0\TmsCore.dll
 C:\Users\tesfa\TmsCore\obj\Debug\net10.0\refint\TmsCore.dll
 C:\Users\tesfa\TmsCore\obj\Debug\net10.0\TmsCore.pdb
 C:\Users\tesfa\TmsCore\obj\Debug\net10.0\TmsCore.genruntimeconfig.cache
 C:\Users\tesfa\TmsCore\obj\Debug\net10.0\ref\TmsCore.dll
-C:\Users\tesfa\TmsCore\obj\Debug\net10.0\TmsCore.sourcelink.json
