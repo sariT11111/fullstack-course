@@ -265,3 +265,35 @@ foreach (var loadedStudent in loadedStudents)
         Console.WriteLine($"   Rejected: {loadedStudent.Name} - {ex.Message}");
     }
 }
+//Exercise 7: Custom Exceptions
+Console.WriteLine();
+
+Console.WriteLine("--- Exercise 7: Custom Exceptions ---");
+
+try
+{
+    var overflowCourse = new Course
+    {
+        Code = "CRS-999",
+        Title = "Overflow Test",
+        Capacity = 0,
+        EnrolledCount = 0
+    };
+
+    enrollService.ProcessRegistration(
+        new Student
+        {
+            Id = "S99",
+            Name = "Test",
+            Age = 20,
+            GPA = 3.0m
+        },
+        overflowCourse
+    );
+}
+catch (CapacityReachedException ex)
+{
+    Console.WriteLine("Domain exception caught:");
+    Console.WriteLine($"   Course: {ex.CourseCode}");
+    Console.WriteLine($"   Message: {ex.Message}");
+}
