@@ -228,3 +228,40 @@ async Task<Course> FetchCourseAsync(string code)
         }
     };
 }
+//session 3-Exercise 6 part B: TMS Enrollment Engine
+Console.WriteLine();
+
+Console.WriteLine("--- Exercise 6 Part B: TMS Enrollment Engine ---");
+
+var enrollCourse = new Course
+{
+    Code = "CRS-101",
+    Title = "C# Mastery",
+    Capacity = 2,
+    EnrolledCount = 0
+};
+
+var enrollService = new EnrollmentService();
+
+var enrollments = new List<EnrollmentRecord>();
+var failures = new List<string>();
+
+sw.Restart();
+
+foreach (var loadedStudent in loadedStudents)
+{
+    try
+    {
+        var record = enrollService.ProcessRegistration(loadedStudent, enrollCourse);
+
+        enrollCourse.EnrolledCount++;
+        enrollments.Add(record);
+
+        Console.WriteLine($"   Enrolled: {loadedStudent.Name}");
+    }
+    catch (InvalidOperationException ex)
+    {
+        failures.Add($"{loadedStudent.Name}: {ex.Message}");
+        Console.WriteLine($"   Rejected: {loadedStudent.Name} - {ex.Message}");
+    }
+}
