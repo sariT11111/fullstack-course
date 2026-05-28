@@ -131,3 +131,100 @@ string[] frontendCourses = ["TypeScript", "Angular"];
 string[] allCourses = [..backendCourses, ..frontendCourses, "Capstone"];
 
 Console.WriteLine($"\nFull curriculum: {string.Join(", ", allCourses)}");
+
+//session 3-Exercise 6: Async and Await
+Console.WriteLine();
+
+Console.WriteLine("--- Exercise 6: Async and Await ---");
+
+var sw = System.Diagnostics.Stopwatch.StartNew();
+
+for (int i = 0; i < 5; i++)
+{
+    System.Threading.Thread.Sleep(300);
+}
+
+Console.WriteLine($"Blocking sequential: {sw.ElapsedMilliseconds}ms");
+
+sw.Restart();
+
+for (int i = 0; i < 5; i++)
+{
+    await Task.Delay(300);
+}
+
+Console.WriteLine($"Async sequential:    {sw.ElapsedMilliseconds}ms");
+
+sw.Restart();
+
+var delayTasks = Enumerable.Range(0, 5)
+    .Select(_ => Task.Delay(300));
+
+await Task.WhenAll(delayTasks);
+
+Console.WriteLine($"Async parallel:      {sw.ElapsedMilliseconds}ms");
+
+Console.WriteLine();
+
+Console.WriteLine("--- Exercise 6: Parallel Student and Course Loading ---");
+
+sw.Restart();
+
+string[] studentIds = ["S1", "S2", "S3", "S4", "S5"];
+string[] courseCodes = ["CRS-101", "CRS-201", "CRS-301"];
+
+var studentTasks = studentIds.Select(id => FetchStudentAsync(id));
+var courseTasks = courseCodes.Select(code => FetchCourseAsync(code));
+
+Student[] loadedStudents = await Task.WhenAll(studentTasks);
+Course[] loadedCourses = await Task.WhenAll(courseTasks);
+
+Console.WriteLine($"\nLoaded {loadedStudents.Length} students and {loadedCourses.Length} courses in {sw.ElapsedMilliseconds}ms");
+
+foreach (var s in loadedStudents)
+{
+    Console.WriteLine($"   {s.Name} - GPA: {s.GPA}");
+}
+
+async Task<Student> FetchStudentAsync(string id)
+{
+    Console.WriteLine($"   Fetching {id}...");
+
+    await Task.Delay(300);
+
+    return new Student
+    {
+        Id = id,
+        Name = $"Student-{id}",
+        Age = 20,
+        GPA = id switch
+        {
+            "S1" => 3.8m,
+            "S2" => 2.4m,
+            "S3" => 3.5m,
+            "S4" => 1.9m,
+            "S5" => 3.2m,
+            _ => 2.5m
+        }
+    };
+}
+
+async Task<Course> FetchCourseAsync(string code)
+{
+    Console.WriteLine($"   Fetching course {code}...");
+
+    await Task.Delay(200);
+
+    return new Course
+    {
+        Code = code,
+        Title = $"Course-{code}",
+        Capacity = code switch
+        {
+            "CRS-101" => 2,
+            "CRS-201" => 30,
+            "CRS-301" => 15,
+            _ => 25
+        }
+    };
+}
