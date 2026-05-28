@@ -297,3 +297,33 @@ catch (CapacityReachedException ex)
     Console.WriteLine($"   Course: {ex.CourseCode}");
     Console.WriteLine($"   Message: {ex.Message}");
 }
+
+//Exercise 7B: Enrollment Summary Report.
+sw.Stop();
+
+decimal classAverage = loadedStudents.Length > 0
+    ? loadedStudents.Average(s => s.GPA)
+    : 0m;
+
+Console.WriteLine();
+
+Console.WriteLine("========== ENROLLMENT SUMMARY ==========");
+Console.WriteLine($"Total students loaded:       {loadedStudents.Length}");
+Console.WriteLine($"Successful enrollments:      {enrollments.Count}");
+Console.WriteLine($"Failed enrollments:          {failures.Count}");
+Console.WriteLine($"Class average GPA:           {classAverage:F2}");
+Console.WriteLine($"Total elapsed time:          {sw.ElapsedMilliseconds}ms");
+
+if (failures.Count > 0)
+{
+    Console.WriteLine();
+
+    Console.WriteLine("--- Failure Details ---");
+
+    foreach (var failure in failures)
+    {
+        Console.WriteLine($"   {failure}");
+    }
+}
+
+Console.WriteLine("========================================");
